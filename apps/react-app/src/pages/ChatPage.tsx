@@ -28,7 +28,7 @@ function ChatPage() {
   const bottomOfChatRef = useRef<HTMLDivElement>(null)
   const [connected, setConnected] = useState(false)
   const [typing, setTyping] = useState(false)
-
+  const [loading , setLoading] = useState(false)
   const [message, setMessage] = useState("");
   const [objArray, setobjArray] = useState<Obj[]>([])
   const [inputDisable , setInputDisable] = useState(true)
@@ -49,6 +49,7 @@ function ChatPage() {
       }
       
       if(msgObj.type === "message" || msgObj.type === "init_chat") {
+        setLoading(false)
         setInputDisable(false)
         setobjArray((obj)=>{
           return [...obj, msgObj]
@@ -140,7 +141,7 @@ function ChatPage() {
   }
 
   function handleGetConnected(){
-
+    setLoading(true)
     setMessage("");
     setobjArray([])
     
@@ -156,6 +157,7 @@ function ChatPage() {
 
   function closeConn(){
 
+    setLoading(false)
     const endChat = {
       msg : "You left the chat",
       person : "me",
@@ -190,6 +192,7 @@ function ChatPage() {
             {typing ? <div ref={bottomOfChatRef}>typing</div> : <div ref={bottomOfChatRef}></div> }
 
           </div>
+          {loading? <div style={{height: "100%"}} className='flex justify-center items-center w-full'>Connecting you to Someone...</div>  : <div></div> }
         </div>
         <div className='flex'>
           <input disabled={inputDisable} style={{width : "88%", border : "0px"}} className='p-1 rounded-lg' autoFocus onChange={handleChange} type="text" placeholder='Enter Msg' />
@@ -203,12 +206,4 @@ function ChatPage() {
     </div>
   )
 }
-
-
-
-
-
-
 export default ChatPage
-
-
