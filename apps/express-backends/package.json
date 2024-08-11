@@ -1,0 +1,14 @@
+{
+  "name": "express-backends",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "esbuild src/index.ts --platform=node --bundle --outdir=dist",
+    "dev" : "esbuild src/index.ts --platform=node --bundle --outdir=dist && node dist/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}
